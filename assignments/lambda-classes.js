@@ -45,15 +45,15 @@ class Instructor extends Person {
         return `${studentObj.name} receives a perfect score on ${subject}`
     }
 
-    updateGrade(studentObj, perfomance) {
+    updateGrade(studentObj) {
         let studentGrade = studentObj.grade;
-        if (perfomance === 'Good' && studentObj.graduate === false) {
+        let performance = Math.floor(Math.random() * 2) + 1; 
+        if (performance === 2 && studentObj.graduate === false) {
             let additionalGrade = Math.round(Math.random() * 100);
             studentGrade = (studentGrade + additionalGrade)/2;
             console.log(`Congratulations ${studentObj.name} you have done a wonderful job on today's test, you receive an additional score of ${additionalGrade}, now your total grade is ${studentGrade}`);
             return studentObj.graduation(studentGrade);
-
-        } else if (perfomance === 'Bad' && studentObj.graduate === false){
+        } else if (performance === 1 && studentObj.graduate === false){
             let subtractedGrade = Math.round(Math.random() * 100)
             studentGrade = (studentGrade - subtractedGrade) / 2;
             console.log (`Keep up ${studentObj.name} you could have done better on today's test, we will remove ${subtractedGrade} points from your original grade, now your total grade is ${studentGrade}`);
@@ -163,7 +163,7 @@ const karim = new Student({
     catchPhrase: `Don't forget the homies`
 });
 
-let karimGrade = fred.updateGrade(karim, 'Good');
+let karimGrade = fred.updateGrade(karim);
 console.log(karimGrade);
 
 // let karimGraduation = karim.graduate(karim);
