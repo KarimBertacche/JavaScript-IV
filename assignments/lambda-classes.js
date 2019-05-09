@@ -50,11 +50,13 @@ class Instructor extends Person {
         if (perfomance === 'Good') {
             let additionalGrade = Math.round(Math.random() * 100);
             studentGrade = (studentGrade + additionalGrade)/2;
-            return `Congratulations ${studentObj.name} you have done a wonderful job on today's test, you receive an additional score of ${additionalGrade}, now your total grade is ${studentGrade}`;
+            console.log(`Congratulations ${studentObj.name} you have done a wonderful job on today's test, you receive an additional score of ${additionalGrade}, now your total grade is ${studentGrade}`);
+            return studentObj.graduate(studentGrade);
         } else if (perfomance === 'Bad'){
             let subtractedGrade = Math.round(Math.random() * 100)
             studentGrade = (studentGrade - subtractedGrade) / 2;
-            return `Keep up ${studentObj.name} you could have done better on today's test, we will remove ${subtractedGrade} points from your original grade, now your total grade is ${studentGrade}`
+            console.log (`Keep up ${studentObj.name} you could have done better on today's test, we will remove ${subtractedGrade} points from your original grade, now your total grade is ${studentGrade}`);
+            return studentObj.graduate(studentGrade);
         }    
     }
 }
@@ -96,13 +98,13 @@ class Student extends Person {
         return `${this.name} has begun sprint challenge on ${subject}`
     }
 
-    graduate(studentObj) {
-        if(studentObj.grade >= 70){
+    graduate(grade) {
+        if(grade >= 70){
             return `Congratulations ${this.name} you graduate from Lambda School❗️🎉🎊.
-            Your final score is ${studentObj.grade}`;
-        } else if (studentObj.grade < 70) {
+            Your final score is ${grade}`;
+        } else if (grade < 70) {
             return `Keep trying ${this.name} you almost graduated from Lambda School.
-            At the moment your score is ${studentObj.grade}`;
+            At the moment your score is ${grade}`;
         }   
     }
 }
@@ -155,5 +157,5 @@ const karim = new Student({
 let karimGrade = fred.updateGrade(karim, 'Good');
 console.log(karimGrade);
 
-let karimGraduation = karim.graduate(karim);
-console.log(karimGraduation);
+// let karimGraduation = karim.graduate(karim);
+// console.log(karimGraduation);
