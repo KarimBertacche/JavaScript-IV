@@ -47,17 +47,20 @@ class Instructor extends Person {
 
     updateGrade(studentObj, perfomance) {
         let studentGrade = studentObj.grade;
-        if (perfomance === 'Good') {
+        if (perfomance === 'Good' && studentObj.graduate === false) {
             let additionalGrade = Math.round(Math.random() * 100);
             studentGrade = (studentGrade + additionalGrade)/2;
             console.log(`Congratulations ${studentObj.name} you have done a wonderful job on today's test, you receive an additional score of ${additionalGrade}, now your total grade is ${studentGrade}`);
-            return studentObj.graduate(studentGrade);
-        } else if (perfomance === 'Bad'){
+            return studentObj.graduation(studentGrade);
+
+        } else if (perfomance === 'Bad' && studentObj.graduate === false){
             let subtractedGrade = Math.round(Math.random() * 100)
             studentGrade = (studentGrade - subtractedGrade) / 2;
             console.log (`Keep up ${studentObj.name} you could have done better on today's test, we will remove ${subtractedGrade} points from your original grade, now your total grade is ${studentGrade}`);
-            return studentObj.graduate(studentGrade);
-        }    
+            return studentObj.graduation(studentGrade);
+        } else if (studentObj.graduate === true) {
+            return `Take a break ${studentObj.name} you have done an awesome job here at Lambda, good luck in your career as a developer 🔥 you have now the skills to achieve it all!`
+        } 
     }
 }
 
@@ -84,6 +87,7 @@ class Student extends Person {
         this.className = attributes.className;
         this.favSubject = attributes.favSubject;
         this.grade = 50;
+        this.graduate = false;
     }
 
     listsSubjects() {
@@ -98,14 +102,19 @@ class Student extends Person {
         return `${this.name} has begun sprint challenge on ${subject}`
     }
 
-    graduate(grade) {
+    graduation(grade, InstructorObj) {
         if(grade >= 70){
+            this.graduate = true;
             return `Congratulations ${this.name} you graduate from Lambda School❗️🎉🎊.
             Your final score is ${grade}`;
-        } else if (grade < 70) {
-            return `Keep trying ${this.name} you almost graduated from Lambda School.
+            
+        } else if (grade < 70 && grade >= 50) {
+            return (`Keep up the good work, never stop trying ${this.name} you are very close to graduating from Lambda School.
+            At the moment your score is ${grade}`); 
+        }  else {
+            return `Study, repeat all exercises, and go over the toolkit, give it your all and eventually you will graduate from Lambda School ${this.name} you can do it!!
             At the moment your score is ${grade}`;
-        }   
+        }
     }
 }
 
