@@ -26,6 +26,8 @@ class Person {
 // Instructor has the following methods:
 // demo receives a subject string as an argument and logs out the phrase 'Today we are learning about {subject}' where subject is the param passed in.
 // grade receives a student object and a subject string as arguments and logs out '{student.name} receives a perfect score on {subject}'
+//STRETCH
+// Now that our students have a grade build out a method on the Instructor (this will be used by BOTH instructors and PM's) that will randomly add or subtract points to a student's grade. Math.random will help.
 
 class Instructor extends Person {
     constructor(attributes) {
@@ -42,6 +44,19 @@ class Instructor extends Person {
     grade(studentObj, subject) {
         return `${studentObj.name} receives a perfect score on ${subject}`
     }
+
+    updateGrade(studentObj, perfomance) {
+        let studentGrade = studentObj.grade;
+        if (perfomance === 'Good') {
+            let additionalGrade = Math.round(Math.random() * 100);
+            studentGrade = (studentGrade + additionalGrade)/2;
+            return `Congratulations ${studentObj.name} you have done a wonderful job on today's test, you receive an additional score of ${additionalGrade}, now your total grade is ${studentGrade}`;
+        } else if (perfomance === 'Bad'){
+            let subtractedGrade = Math.round(Math.random() * 100)
+            studentGrade = (studentGrade - subtractedGrade) / 2;
+            return `Keep up ${studentObj.name} you could have done better on today's test, we will remove ${subtractedGrade} points from your original grade, now your total grade is ${studentGrade}`
+        }    
+    }
 }
 
 // Now we need some students!
@@ -54,6 +69,11 @@ class Instructor extends Person {
 // listsSubjects a method that logs out all of the student's favoriteSubjects one by one.
 // PRAssignment a method that receives a subject as an argument and logs out that the student.name has submitted a PR for {subject}
 // sprintChallenge similar to PRAssignment but logs out student.name has begun sprint challenge on {subject}
+//STRETCH
+// Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+// Add a graduate method to a student.
+// This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+// If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 
 class Student extends Person {
     constructor(attributes) {
@@ -61,6 +81,7 @@ class Student extends Person {
         this.previousBackground = attributes.previousBackground;
         this.className = attributes.className;
         this.favSubject = attributes.favSubject;
+        this.grade = 50;
     }
 
     listsSubjects() {
@@ -73,6 +94,16 @@ class Student extends Person {
 
     sprintChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}`
+    }
+
+    graduate(studentObj) {
+        if(studentObj.grade >= 70){
+            return `Congratulations ${this.name} you graduate from Lambda School❗️🎉🎊.
+            Your final score is ${studentObj.grade}`;
+        } else if (studentObj.grade < 70) {
+            return `Keep trying ${this.name} you almost graduated from Lambda School.
+            At the moment your score is ${studentObj.grade}`;
+        }   
     }
 }
 
@@ -100,3 +131,29 @@ class PM extends Instructor {
         return `${this.name} debugs ${studentObj.name}'s code on ${subject}` 
     }
 }
+
+const fred = new Instructor({
+    name: 'Fred',
+    location: 'Bedrock',
+    age: 37,
+    gender: 'male',
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`
+});
+
+const karim = new Student({
+    name: 'Karim',
+    location: 'Novara',
+    age: 29,
+    gender: 'male',
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`
+});
+
+let karimGrade = fred.updateGrade(karim, 'Good');
+console.log(karimGrade);
+
+let karimGraduation = karim.graduate(karim);
+console.log(karimGraduation);
