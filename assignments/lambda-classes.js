@@ -40,7 +40,7 @@ class Instructor extends Person {
     }
 
     grade(studentObj, subject) {
-        return `{studentObj.name} receives a perfect score on {subject}`
+        return `${studentObj.name} receives a perfect score on ${subject}`
     }
 }
 
@@ -73,5 +73,30 @@ class Student extends Person {
 
     sprintChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}`
+    }
+}
+
+// Now that we have instructors and students, we'd be nowhere without our PM's
+// ProjectManagers are extensions of Instructors
+// ProjectManagers have the following unique props:
+// gradClassName: i.e. CS1
+// favInstructor: i.e. Sean
+// ProjectManagers have the following Methods:
+// standUp a method that takes in a slack channel and logs `{name} announces to {channel}, @channel standy times!​​​​​
+// debugsCode a method that takes in a student object and a subject and logs out {name} debugs {student.name}'s code on {subject}
+
+class PM extends Instructor {
+    constructor(attributes) {
+        super(attributes);
+        this.gradClassName = attributes.gradClassName;
+        this.favInstructor = attributes.favInstructor;
+    }
+
+    standUp(slackChannel) {
+        return `${this.name} announces to ${channel}, @channel standy times!`
+    }
+
+    debugsCode(studentObj, subject) {
+        return `${this.name} debugs ${studentObj.name}'s code on ${subject}` 
     }
 }
