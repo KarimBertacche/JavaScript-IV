@@ -160,7 +160,7 @@ const karim = new Student({
     gender: 'male',
     favLanguage: 'JavaScript',
     specialty: 'Front-end',
-    catchPhrase: `Don't forget the homies`
+    catchPhrase: `Life is a journey`
 });
 
 let karimGrade = fred.updateGrade(karim);
